@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F3F5F0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#151916" media="(prefers-color-scheme: dark)">
+<title>Menu</title>
+<link rel="icon" href="mark.svg" type="image/svg+xml">
+<style>
+@font-face{font-family:"Almarai";font-weight:400;font-display:swap;src:url(fonts/alm-arabic-400.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF}
+@font-face{font-family:"Almarai";font-weight:700;font-display:swap;src:url(fonts/alm-arabic-700.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF}
+@font-face{font-family:"Almarai";font-weight:800;font-display:swap;src:url(fonts/alm-arabic-800.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF}
+@font-face{font-family:"Montserrat";font-weight:400;font-display:swap;src:url(fonts/mont-latin-400.woff2) format("woff2")}
+@font-face{font-family:"Montserrat";font-weight:600;font-display:swap;src:url(fonts/mont-latin-600.woff2) format("woff2")}
+@font-face{font-family:"Montserrat";font-weight:700;font-display:swap;src:url(fonts/mont-latin-700.woff2) format("woff2")}
+
+:root{
+  --grove:#024713;      /* brand green */
+  --ink:#212322;        /* brand charcoal */
+  --paper:#F3F5F0;      /* page */
+  --card:#FFFFFF;
+  --sage:#DCE5D9;       /* lines, chips */
+  --mute:#5E6660;       /* secondary text */
+  --honey:#C98A12;      /* offers only */
+  --honey-wash:#FBF1DC;
+  --on-grove:#FFFFFF;
+  --shade:rgba(21,25,22,.55);
+  --radius-l:22px; --radius-s:10px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --grove:#8CC79A; --ink:#EDF1EC; --paper:#151916; --card:#1D221E; --sage:#2D3530;
+    --mute:#A3ADA5; --honey:#F0B848; --honey-wash:#2E2717; --on-grove:#0F2414; --shade:rgba(0,0,0,.7);
+    color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:64px}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.55 "Almarai","Montserrat",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+html[lang="en"] body{font-family:"Montserrat","Almarai",system-ui,sans-serif;font-size:15px}
+.num,.price{font-family:"Montserrat",system-ui,sans-serif;font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--grove);outline-offset:2px}
+.wrap{max-width:560px;margin:0 auto}
+
+/* ---------- head ---------- */
+.head{padding:22px 18px 6px;display:flex;align-items:center;gap:12px}
+.head .brand{flex:1;min-width:0}
+.head img{height:46px;width:auto;display:block}
+.head h1{margin:0;font-size:26px;font-weight:800;letter-spacing:-.01em}
+.tools{display:flex;gap:8px}
+.tbtn{border:1px solid var(--sage);background:var(--card);border-radius:999px;height:40px;min-width:40px;padding:0 14px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;font-weight:700;font-size:14px}
+.tbtn svg{width:18px;height:18px}
+.note{padding:0 18px;margin:4px 0 0;color:var(--mute);font-size:14px}
+.rate{padding:0 18px;margin:2px 0 0;color:var(--mute);font-size:13px}
+
+/* ---------- search ---------- */
+.search{padding:12px 18px 0;display:none}
+.search.on{display:block}
+.search input{width:100%;height:46px;border-radius:14px;border:1px solid var(--sage);background:var(--card);color:var(--ink);padding:0 16px;font:inherit}
+
+/* ---------- category rail ---------- */
+.rail{position:sticky;top:0;z-index:5;background:var(--paper);padding:12px 0 10px;margin-top:8px}
+.rail-in{display:flex;gap:8px;overflow-x:auto;padding:0 18px;scrollbar-width:none}
+.rail-in::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--sage);background:transparent;border-radius:999px;padding:8px 16px;font-weight:700;font-size:14px;cursor:pointer;white-space:nowrap}
+.chip[aria-current="true"]{background:var(--grove);border-color:var(--grove);color:var(--on-grove)}
+.chip.offer{border-color:var(--honey);color:var(--honey)}
+.chip.offer[aria-current="true"]{background:var(--honey);color:#fff}
+
+/* ---------- group cover: the one loud thing ---------- */
+.grp{margin:18px 0 6px}
+.cover{position:relative;margin:0 12px;border-radius:var(--radius-l);overflow:hidden;min-height:150px;display:flex;align-items:flex-end;background:var(--gc,var(--grove));color:#fff}
+.cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cover.has-img{aspect-ratio:16/8}
+.cover.has-img::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,var(--shade) 0%,rgba(0,0,0,0) 62%)}
+.cover h2{position:relative;z-index:1;margin:0;padding:18px 20px;font-size:34px;line-height:1.1;font-weight:800;letter-spacing:-.015em;text-wrap:balance}
+html[lang="en"] .cover h2{font-size:31px;font-weight:700}
+.cover .cnt{position:absolute;z-index:1;top:14px;inset-inline-end:16px;font-size:13px;font-weight:700;background:rgba(255,255,255,.18);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-radius:999px;padding:3px 10px}
+
+/* ---------- item rows ---------- */
+.list{margin:6px 18px 0;padding:0;list-style:none}
+.row{display:flex;gap:14px;align-items:flex-start;padding:15px 2px;border-bottom:1px solid var(--sage);cursor:pointer;width:100%;text-align:start;background:none;border-top:0;border-inline:0}
+.list li:last-child .row{border-bottom:0}
+.row .t{flex:1;min-width:0}
+.row h3{margin:0;font-size:17px;font-weight:700;line-height:1.35}
+html[lang="en"] .row h3{font-size:16px;font-weight:600}
+.row p{margin:3px 0 0;color:var(--mute);font-size:14px;line-height:1.5}
+.row .sz{margin-top:5px;font-size:13px;color:var(--mute)}
+.row .pr{text-align:end;flex:none;padding-top:1px}
+.pr .usd{font-weight:700;font-size:17px;display:block;font-family:"Montserrat",system-ui,sans-serif}
+.pr .lbp{font-size:12.5px;color:var(--mute);display:block;margin-top:1px}
+.pr .from{font-family:inherit;font-size:12px;color:var(--mute);font-weight:400;margin-inline-end:3px}
+.pr s{color:var(--mute);font-weight:400;font-size:13px;display:block}
+.badge{display:inline-block;margin-inline-start:6px;vertical-align:2px;font-size:11.5px;font-weight:700;color:var(--honey);background:var(--honey-wash);border-radius:6px;padding:1px 7px}
+.more{display:inline-flex;align-items:center;gap:3px;margin-top:6px;color:var(--grove);font-size:13px;font-weight:700}
+
+/* ---------- offers ---------- */
+.offers{margin:18px 12px 0;border-radius:var(--radius-l);background:var(--honey-wash);padding:18px 16px 8px}
+.offers h2{margin:0 0 4px;font-size:24px;font-weight:800;color:var(--honey)}
+html[lang="en"] .offers h2{font-weight:700}
+.deal{margin:10px 0 0;padding:12px 14px;border-radius:14px;background:var(--card);font-size:14.5px}
+.deal b{display:block;font-size:15.5px}
+.deal .when{display:block;color:var(--mute);font-size:13.5px;margin-top:2px}
+.offers .list{margin:6px 4px 0}
+.offers .row{border-color:rgba(201,138,18,.25)}
+
+.empty{padding:50px 24px;text-align:center;color:var(--mute)}
+.foot{padding:30px 18px 50px;color:var(--mute);font-size:13px;text-align:center}
+.foot p{margin:3px 0}
+
+/* ---------- sheet ---------- */
+.scrim{position:fixed;inset:0;background:rgba(10,14,11,.5);opacity:0;pointer-events:none;transition:opacity .2s;z-index:20}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;z-index:21;inset-inline:0;bottom:0;margin:0 auto;max-width:560px;max-height:88vh;background:var(--card);border-radius:24px 24px 0 0;display:flex;flex-direction:column;transform:translateY(105%);transition:transform .26s cubic-bezier(.2,.8,.2,1)}
+.sheet.on{transform:none}
+.sheet:focus{outline:none}
+.sheet .grab{width:42px;height:5px;border-radius:9px;background:var(--sage);margin:10px auto 0}
+.sheet .body{overflow-y:auto;padding:10px 20px 18px;overscroll-behavior:contain}
+.sheet .x{position:absolute;top:12px;inset-inline-end:14px}
+.sheet h2{margin:10px 0 2px;font-size:24px;font-weight:800;line-height:1.25;padding-inline-end:46px}
+html[lang="en"] .sheet h2{font-weight:700}
+.sheet .d{margin:4px 0 0;color:var(--mute)}
+.parts{margin:12px 0 0;padding:0;list-style:none}
+.parts li{padding:8px 0;border-bottom:1px dashed var(--sage)}
+.opt-g{margin-top:20px;border:0;padding:0}
+.opt-g legend{font-weight:800;font-size:16px;padding:0;margin-bottom:8px;display:flex;gap:8px;align-items:baseline}
+html[lang="en"] .opt-g legend{font-weight:700}
+.opt-g legend small{font-weight:400;color:var(--mute);font-size:13px}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg label{flex:1 1 30%;min-width:96px}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label>span{display:flex;flex-direction:column;align-items:center;gap:2px;border:1.5px solid var(--sage);border-radius:14px;padding:10px 8px;cursor:pointer;text-align:center;font-weight:700}
+.seg label>span .num{font-weight:400;font-size:13px;color:var(--mute)}
+.seg input:checked+span{border-color:var(--grove);background:color-mix(in srgb,var(--grove) 9%,transparent)}
+.seg input:focus-visible+span{outline:3px solid var(--grove);outline-offset:2px}
+.opt{display:flex;align-items:center;gap:12px;padding:11px 2px;border-bottom:1px solid var(--sage);cursor:pointer}
+.opt:last-child{border-bottom:0}
+.opt input{width:20px;height:20px;accent-color:var(--grove);margin:0;flex:none}
+.opt .n{flex:1}
+.opt .p{color:var(--mute);font-size:14px}
+.total{border-top:1px solid var(--sage);padding:14px 20px calc(14px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:12px}
+.total .lab{flex:1;color:var(--mute);font-size:13px;line-height:1.4}
+.total .lab b{display:block;color:var(--ink);font-size:15px}
+.total .v{text-align:end}
+.total .v .usd{font-size:24px;font-weight:700;display:block;line-height:1.1}
+.total .v .lbp{font-size:13.5px;color:var(--mute)}
+.total .v s{font-size:13px;color:var(--mute);display:block}
+
+@media (min-width:600px){.cover{margin:0}.offers{margin-inline:0}.wrap{padding:0 16px}}
+@media (prefers-reduced-motion: reduce){.sheet,.scrim{transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"><div class="empty" id="boot">…</div></div>
+<div class="scrim" id="scrim"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sh-title" hidden></div>
+
+<script id="seed" type="application/json"></script>
+<script>
+(function(){
+'use strict';
+const TX = {
+  ar:{search:'ابحث', lang:'English', offers:'العروض', from:'من', updated:'آخر تحديث للأسعار', rate:'سعر الصرف: {r} ل.ل للدولار', none:'ما في أصناف بهالاسم.',
+      choose:'اختيار واحد', any:'اختيار متعدد', req:'إجباري', size:'الحجم', total:'السعر النهائي', info:'السعر للاطلاع. اطلب من الكاشير.',
+      close:'سكّر', save:'وفّر {v}', regular:'بدل {v}', loadErr:'ما قدرنا نحمّل المنيو. تأكد من الإنترنت وجرّب مرة تانية.', retry:'جرّب مرة تانية',
+      days:['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'], every:'كل يوم', between:'من {a} لـ {b}', until:'لغاية {d}', off:'خصم {p}%', on:'على', all:'كل المنيو', options:'فيه خيارات', lbp:'ل.ل'},
+  en:{search:'Search', lang:'عربي', offers:'Offers', from:'from', updated:'Prices last updated', rate:'Exchange rate: LBP {r} per $1', none:'Nothing matches that name.',
+      choose:'Pick one', any:'Pick any', req:'Required', size:'Size', total:'Final price', info:'Prices for reference. Order at the counter.',
+      close:'Close', save:'Save {v}', regular:'instead of {v}', loadErr:'The menu could not load. Check your connection and try again.', retry:'Try again',
+      days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'], every:'Every day', between:'{a} to {b}', until:'until {d}', off:'{p}% off', on:'on', all:'the whole menu', options:'Has options', lbp:'LBP'}
+};
+let M = null, lang = 'ar', q = '', open = null;
+try { const s = localStorage.getItem('menu-lang'); if (s === 'en' || s === 'ar') lang = s; else if (!/^ar/i.test(navigator.language || '')) lang = 'en'; } catch (e) {}
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const t = (k, v) => { let r = TX[lang][k]; if (v) for (const x in v) r = r.split('{' + x + '}').join(v[x]); return r; };
+const nm = o => (lang === 'en' && o.nameEn) ? o.nameEn : o.name;
+const ds = o => (lang === 'en' && o.descEn) ? o.descEn : (lang === 'en' && !o.descEn && o.nameEn ? '' : o.desc || '');
+const num = v => +v || 0;
+const ceilTo = (v, s) => s > 0 ? Math.ceil(Math.round(v / s * 1e6) / 1e6) * s : v;
+const r2 = v => Math.round(v * 100) / 100;
+const usd = v => '$' + r2(v).toFixed(2);
+const toLbp = p => ceilTo(p * num(M.rate), num(M.roundLbp));
+const lbp = v => lang === 'en' ? 'LBP ' + Math.round(v).toLocaleString('en-US') : Math.round(v).toLocaleString('en-US') + ' ' + t('lbp');
+const showL = () => M.showLbp !== false && num(M.rate) > 0;
+const P = v => `<span class="usd num">${usd(v)}</span>` + (showL() ? `<span class="lbp num">${lbp(toLbp(v))}</span>` : '');
+
+/* ---------- timed discounts: same rules as the till ---------- */
+const pad = n => String(n).padStart(2, '0');
+const dayKey = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+function promoActive(p, d){
+  if (!p || !(num(p.pct) > 0)) return false;
+  const day = dayKey(d);
+  if (p.dateFrom && day < p.dateFrom) return false;
+  if (p.dateTo && day > p.dateTo) return false;
+  if (Array.isArray(p.days) && p.days.length && !p.days.includes(d.getDay())) return false;
+  if (p.from && p.to) { const tm = pad(d.getHours()) + ':' + pad(d.getMinutes()); if (p.from <= p.to ? !(tm >= p.from && tm < p.to) : !(tm >= p.from || tm < p.to)) return false; }
+  return true;
+}
+function promoFor(it){
+  if (it.combo) return null;
+  let best = null; const now = new Date();
+  for (const p of M.promos || []) {
+    if (!promoActive(p, now)) continue;
+    const hit = p.target === 'all' || (p.target === 'group' && (p.ids || []).includes(it.g)) || (p.target === 'item' && (p.ids || []).includes(it.id));
+    if (hit && (!best || num(p.pct) > num(best.pct))) best = p;
+  }
+  return best;
+}
+const disc = (v, p) => p ? r2(v * (1 - num(p.pct) / 100)) : v;
+/* a promo that runs today, now or later, shown in the offers box */
+function promoToday(p){
+  const d = new Date(), day = dayKey(d);
+  if (!p || !(num(p.pct) > 0)) return false;
+  if (p.dateFrom && day < p.dateFrom) return false;
+  if (p.dateTo && day > p.dateTo) return false;
+  if (Array.isArray(p.days) && p.days.length && !p.days.includes(d.getDay())) return false;
+  if (p.from && p.to && p.from <= p.to) { const tm = pad(d.getHours()) + ':' + pad(d.getMinutes()); if (tm >= p.to) return false; }
+  return true;
+}
+function promoLine(p){
+  const target = p.target === 'all' ? t('all') : (p.ids || []).map(id => { const o = p.target === 'group' ? M.groups.find(g => g.id === id) : M.items.find(i => i.id === id); return o ? nm(o) : ''; }).filter(Boolean).join(lang === 'en' ? ', ' : '، ');
+  const when = [];
+  if (p.from && p.to) when.push(t('between', {a: `<span class="num">${esc(p.from)}</span>`, b: `<span class="num">${esc(p.to)}</span>`}));
+  if (Array.isArray(p.days) && p.days.length && p.days.length < 7) when.push(p.days.slice().sort().map(x => TX[lang].days[x]).join(lang === 'en' ? ', ' : '، '));
+  if (p.dateTo) when.push(t('until', {d: `<span class="num">${esc(p.dateTo)}</span>`}));
+  return `<div class="deal"><b>${t('off', {p: `<span class="num">${num(p.pct)}</span>`})} ${t('on')} ${esc(target)}</b>${when.length ? `<span class="when">${when.join(lang === 'en' ? ', ' : '، ')}</span>` : ''}</div>`;
+}
+
+/* ---------- list ---------- */
+const sizesTxt = it => it.sizes.length > 1 ? it.sizes.map(s => esc(nm(s))).join(lang === 'en' ? ' / ' : ' / ') : '';
+function rowHTML(it){
+  const pr = promoFor(it), min = Math.min(...it.sizes.map(s => num(s.price)));
+  const many = it.sizes.length > 1, opts = (it.mods || []).length > 0;
+  const d = it.combo ? it.combo.parts.map(p => (lang === 'en' && p.nameEn ? p.nameEn : p.name) + (p.qty > 1 ? ' ×' + p.qty : '')).join(' + ') : ds(it);
+  const reg = it.combo && num(it.combo.regular) > min ? `<s class="num">${usd(it.combo.regular)}</s>` : (pr ? `<s class="num">${usd(min)}</s>` : '');
+  return `<li><button class="row" data-it="${esc(it.id)}">
+    <span class="t"><h3>${esc(nm(it))}${pr ? `<span class="badge">−<span class="num">${num(pr.pct)}</span>%</span>` : ''}</h3>
+      ${d ? `<p>${esc(d)}</p>` : ''}
+      ${many ? `<div class="sz">${sizesTxt(it)}</div>` : ''}
+      ${opts && !many ? `<span class="more">${t('options')}</span>` : ''}</span>
+    <span class="pr">${reg}${many ? `<span class="usd"><span class="from">${t('from')}</span> <span class="num">${usd(disc(min, pr))}</span></span>${showL() ? `<span class="lbp num">${lbp(toLbp(disc(min, pr)))}</span>` : ''}` : P(disc(min, pr))}</span>
+  </button></li>`;
+}
+const match = it => { if (!q) return true; const s = q.toLowerCase(); return [it.name, it.nameEn, it.desc, it.descEn].some(x => x && String(x).toLowerCase().includes(s)); };
+
+function render(){
+  document.documentElement.lang = lang; document.documentElement.dir = lang === 'en' ? 'ltr' : 'rtl';
+  const title = lang === 'en' && M.nameEn ? M.nameEn : M.name;
+  document.title = title || 'Menu';
+  const items = M.items.filter(match);
+  const combos = items.filter(i => i.combo);
+  const deals = q ? [] : (M.promos || []).filter(promoToday);
+  const groups = M.groups.map(g => ({g, list: items.filter(i => !i.combo && i.g === g.id)})).filter(x => x.list.length);
+  const loose = items.filter(i => !i.combo && !M.groups.some(g => g.id === i.g));
+  if (loose.length) groups.push({g: {id: '_', name: 'أصناف أخرى', nameEn: 'More'}, list: loose});
+  const hasOffers = combos.length || deals.length;
+  const note = lang === 'en' && M.noteEn ? M.noteEn : M.note;
+  $('#app').innerHTML = `
+    <header class="head">
+      <div class="brand">${M.logo ? `<picture><source srcset="logo-dark.svg" media="(prefers-color-scheme: dark)"><img src="logo.svg" alt="${esc(title)}"></picture>` : `<h1>${esc(title)}</h1>`}</div>
+      <div class="tools">
+        <button class="tbtn" id="sbtn" aria-label="${t('search')}" aria-expanded="${!!q}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+        <button class="tbtn" id="lbtn" lang="${lang === 'en' ? 'ar' : 'en'}">${t('lang')}</button>
+      </div>
+    </header>
+    ${note ? `<p class="note">${esc(note)}</p>` : ''}
+    <div class="search ${q ? 'on' : ''}" id="sbox"><input id="q" type="search" value="${esc(q)}" placeholder="${t('search')}" aria-label="${t('search')}"></div>
+    <nav class="rail" aria-label="${lang === 'en' ? 'Categories' : 'الأقسام'}"><div class="rail-in">
+      ${hasOffers ? `<button class="chip offer" data-go="offers">${t('offers')}</button>` : ''}
+      ${groups.map(x => `<button class="chip" data-go="g-${esc(x.g.id)}">${esc(nm(x.g))}</button>`).join('')}
+    </div></nav>
+    <main>
+      ${hasOffers ? `<section class="offers" id="offers"><h2>${t('offers')}</h2>${deals.map(promoLine).join('')}${combos.length ? `<ul class="list">${combos.map(rowHTML).join('')}</ul>` : ''}</section>` : ''}
+      ${groups.map(x => `<section class="grp" id="g-${esc(x.g.id)}">
+        <div class="cover ${x.g.img ? 'has-img' : ''}" style="--gc:${esc(x.g.color || '')}">${x.g.img ? `<img src="${esc(x.g.img)}" alt="" loading="lazy">` : ''}<h2>${esc(nm(x.g))}</h2><span class="cnt num">${x.list.length}</span></div>
+        <ul class="list">${x.list.map(rowHTML).join('')}</ul></section>`).join('')}
+      ${!items.length ? `<div class="empty">${t('none')}</div>` : ''}
+    </main>
+    <footer class="foot">
+      ${showL() ? `<p>${t('rate', {r: `<span class="num">${num(M.rate).toLocaleString('en-US')}</span>`})}</p>` : ''}
+      ${M.updatedAt ? `<p>${t('updated')}: <span class="num">${esc(fmtDate(M.updatedAt))}</span></p>` : ''}
+    </footer>`;
+  spy();
+}
+function fmtDate(s){ const d = new Date(s); return isNaN(d) ? '' : `${dayKey(d)} ${pad(d.getHours())}:${pad(d.getMinutes())}`; }
+
+/* highlight the chip of the section on screen */
+let io = null;
+function spy(){
+  if (io) io.disconnect();
+  if (!('IntersectionObserver' in window)) return;
+  const chips = [...document.querySelectorAll('.chip')];
+  io = new IntersectionObserver(es => {
+    const vis = es.filter(e => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+    if (!vis) return;
+    chips.forEach(c => c.setAttribute('aria-current', c.dataset.go === vis.target.id ? 'true' : 'false'));
+    const on = chips.find(c => c.dataset.go === vis.target.id);
+    // scroll the rail only; scrollIntoView here would cancel the page's own smooth scroll
+    const rail = document.querySelector('.rail-in');
+    if (on && rail) { const a = on.getBoundingClientRect(), b = rail.getBoundingClientRect(); rail.scrollBy({left: (a.left + a.width / 2) - (b.left + b.width / 2), behavior: 'smooth'}); }
+  }, {rootMargin: '-70px 0px -65% 0px'});
+  document.querySelectorAll('main > section').forEach(s => io.observe(s));
+}
+/* the last sections are too short to reach the top: at the bottom of the page, the last chip is the current one */
+window.addEventListener('scroll', () => {
+  if (window.innerHeight + window.scrollY < document.documentElement.scrollHeight - 4) return;
+  const chips = [...document.querySelectorAll('.chip')]; if (!chips.length) return;
+  chips.forEach((c, i) => c.setAttribute('aria-current', i === chips.length - 1 ? 'true' : 'false'));
+}, {passive: true});
+
+/* ---------- item sheet ---------- */
+function sheetHTML(){
+  const it = open.it, pr = promoFor(it);
+  const mgs = (it.mods || []).map(id => M.mods.find(m => m.id === id)).filter(Boolean);
+  const many = it.sizes.length > 1;
+  const d = ds(it);
+  return `<div class="grab"></div><button class="tbtn x" data-close aria-label="${t('close')}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <div class="body">
+      <h2 id="sh-title">${esc(nm(it))}${pr ? `<span class="badge">−<span class="num">${num(pr.pct)}</span>%</span>` : ''}</h2>
+      ${d ? `<p class="d">${esc(d)}</p>` : ''}
+      ${it.combo ? `<ul class="parts">${it.combo.parts.map(p => `<li>${esc(lang === 'en' && p.nameEn ? p.nameEn : p.name)}${(lang === 'en' ? p.sizeEn || p.size : p.size) ? ` <small>(${esc(lang === 'en' ? p.sizeEn || p.size : p.size)})</small>` : ''}${p.qty > 1 ? ` <span class="num">×${p.qty}</span>` : ''}</li>`).join('')}</ul>` : ''}
+      ${many ? `<fieldset class="opt-g"><legend>${t('size')}</legend><div class="seg">${it.sizes.map((s, i) => `<label><input type="radio" name="sz" value="${i}" ${i === open.size ? 'checked' : ''}><span>${esc(nm(s))}<span class="num">${usd(disc(num(s.price), pr))}</span></span></label>`).join('')}</div></fieldset>` : ''}
+      ${mgs.map(g => `<fieldset class="opt-g"><legend>${esc(nm(g))} <small>${g.max === 1 ? t('choose') : t('any')}${g.min ? (lang === 'en' ? ', ' : '، ') + t('req') : ''}</small></legend>
+        ${g.options.map(o => `<label class="opt"><input type="${g.max === 1 ? 'radio' : 'checkbox'}" name="m-${esc(g.id)}" value="${esc(o.id)}" data-g="${esc(g.id)}" ${(open.sel[g.id] || []).includes(o.id) ? 'checked' : ''}><span class="n">${esc(nm(o))}</span>${num(o.price) ? `<span class="p num">+${usd(o.price)}</span>` : ''}</label>`).join('')}</fieldset>`).join('')}
+    </div>
+    <div class="total" id="tot"></div>`;
+}
+function calcTotal(){
+  const it = open.it, pr = promoFor(it), sz = it.sizes[open.size] || it.sizes[0];
+  let raw = num(sz.price);
+  for (const g of (it.mods || []).map(id => M.mods.find(m => m.id === id)).filter(Boolean)) for (const id of open.sel[g.id] || []) { const o = g.options.find(x => x.id === id); if (o) raw += num(o.price); }
+  raw = r2(raw);
+  const v = disc(raw, pr);
+  const reg = it.combo && num(it.combo.regular) > v ? it.combo.regular : (pr ? raw : 0);
+  $('#tot').innerHTML = `<div class="lab"><b>${t('total')}</b>${t('info')}</div><div class="v">${reg ? `<s class="num">${usd(reg)}</s>` : ''}${P(v)}</div>`;
+}
+function openItem(id){
+  const it = M.items.find(i => i.id === id); if (!it) return;
+  const sel = {};
+  (it.mods || []).forEach(gid => { const g = M.mods.find(m => m.id === gid); if (g && g.min && g.max === 1 && g.options[0]) sel[g.id] = [g.options[0].id]; });
+  open = {it, size: 0, sel, from: document.activeElement};
+  const sh = $('#sheet'); sh.hidden = false; sh.innerHTML = sheetHTML(); calcTotal();
+  requestAnimationFrame(() => { sh.classList.add('on'); $('#scrim').classList.add('on'); });
+  document.body.style.overflow = 'hidden';
+  sh.tabIndex = -1; sh.focus({preventScroll: true});
+}
+function closeItem(){
+  if (!open) return;
+  const sh = $('#sheet'), from = open.from; open = null;
+  sh.classList.remove('on'); $('#scrim').classList.remove('on'); document.body.style.overflow = '';
+  setTimeout(() => { if (!open) { sh.hidden = true; sh.innerHTML = ''; } }, 280);
+  if (from && from.focus) from.focus({preventScroll: true});
+}
+
+/* ---------- events ---------- */
+document.addEventListener('click', e => {
+  const r = e.target.closest('[data-it]'); if (r) return openItem(r.dataset.it);
+  if (e.target.closest('[data-close]') || e.target.id === 'scrim') return closeItem();
+  const c = e.target.closest('[data-go]'); if (c) { const s = document.getElementById(c.dataset.go); if (s) s.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'}); return; }
+  if (e.target.closest('#lbtn')) { lang = lang === 'en' ? 'ar' : 'en'; try { localStorage.setItem('menu-lang', lang); } catch (x) {} render(); return; }
+  if (e.target.closest('#sbtn')) { const b = $('#sbox'); const on = !b.classList.contains('on'); b.classList.toggle('on', on); $('#sbtn').setAttribute('aria-expanded', on); if (on) $('#q').focus(); else if (q) { q = ''; render(); } }
+});
+document.addEventListener('change', e => {
+  if (!open) return;
+  const el = e.target;
+  if (el.name === 'sz') { open.size = +el.value; return calcTotal(); }
+  if (el.dataset.g) { open.sel[el.dataset.g] = [...document.querySelectorAll(`[data-g="${CSS.escape(el.dataset.g)}"]:checked`)].map(x => x.value); calcTotal(); }
+});
+/* a single-choice group that is not required can be cleared by tapping the picked option again */
+document.addEventListener('pointerdown', e => {
+  const lab = e.target.closest('.opt'); if (!lab || !open) return;
+  const inp = lab.querySelector('input[type=radio]'); if (!inp) return;
+  const g = M.mods.find(m => m.id === inp.dataset.g);
+  if (g && !g.min && inp.checked) { inp.dataset.unpick = '1'; }
+});
+document.addEventListener('click', e => {
+  const inp = e.target.closest('input[data-unpick]'); if (!inp) return;
+  delete inp.dataset.unpick; inp.checked = false; open.sel[inp.dataset.g] = []; calcTotal();
+}, true);
+let qt;
+document.addEventListener('input', e => { if (e.target.id !== 'q') return; clearTimeout(qt); qt = setTimeout(() => { q = e.target.value.trim(); const pos = e.target.selectionStart; render(); const n = $('#q'); n.focus(); try { n.setSelectionRange(pos, pos); } catch (x) {} }, 180); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeItem(); });
+
+/* ---------- load ---------- */
+async function load(){
+  const seed = $('#seed').textContent.trim();
+  try {
+    M = seed ? JSON.parse(seed) : await (await fetch('menu.json?t=' + Date.now(), {cache: 'no-store'})).json();
+    render();
+  } catch (e) {
+    $('#app').innerHTML = `<div class="empty"><p>${t('loadErr')}</p><button class="tbtn" onclick="location.reload()">${t('retry')}</button></div>`;
+  }
+}
+/* when the phone comes back to the page, pick up new prices */
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && M && !open && !$('#seed').textContent.trim()) fetch('menu.json?t=' + Date.now(), {cache: 'no-store'}).then(r => r.json()).then(d => { if (d.updatedAt !== M.updatedAt) { M = d; render(); } }).catch(() => {}); });
+load();
+})();
+</script>
+</body>
+</html>
