@@ -242,7 +242,8 @@ const TX = {
       count:'{n} items', count1:'1 item', results:'Search results', lbp:'LBP', all2:'All'}
 };
 let M = null, lang = 'ar', q = '', open = null, view = 'home';
-try { const s = localStorage.getItem('menu-lang'); if (s === 'en' || s === 'ar') lang = s; else if (!/^ar/i.test(navigator.language || '')) lang = 'en'; } catch (e) {}
+// Arabic first; a customer who switches to English keeps it on their phone
+try { const s = localStorage.getItem('menu-lang'); if (s === 'en' || s === 'ar') lang = s; } catch (e) {}
 
 const $ = s => document.querySelector(s);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -257,8 +258,12 @@ const usd = v => '$' + r2(v).toFixed(2);
 const toLbp = p => ceilTo(p * num(M.rate), num(M.roundLbp));
 const showL = () => M.showLbp !== false && num(M.rate) > 0;
 const lbpTxt = v => showL() ? (lang === 'en' ? 'LBP ' + toLbp(v).toLocaleString('en-US') : toLbp(v).toLocaleString('en-US') + ' ' + t('lbp')) : '';
-const U = v => `<span class="num">${usd(v)}</span>`;
-const L = v => showL() ? `<span class="num">${lbpTxt(v)}</span>` : '';
+/* which currency is the big one: set in the program (USD by default, LBP if chosen) */
+const leadL = () => M.lead === 'lbp' && showL();
+const money = v => leadL() ? lbpTxt(v) : usd(v);
+const other = v => leadL() ? usd(v) : lbpTxt(v);
+const U = v => `<span class="num">${money(v)}</span>`;
+const L = v => (leadL() || showL()) ? `<span class="num">${other(v)}</span>` : '';
 const style = () => ({board: 'board', app: 'app', blocks: 'blocks'})[M.style] || 'app';
 const icon = {
   search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',
@@ -344,8 +349,8 @@ function fmtDate(s){ const d = new Date(s); return isNaN(d) ? '' : `${dayKey(d)}
 function rowA(it){
   const f = facts(it);
   return `<button class="A-it" data-it="${esc(it.id)}">${ph(f.img)}<span class="t">
-    <span class="A-r"><b>${esc(nm(it))}${tagHTML(f)}</b><i></i><span class="p">${f.many ? '' : `${f.was ? `<s class="num" style="font-size:13px">${usd(f.was)}</s> ` : ''}${U(f.now)}`}</span></span>
-    ${f.many ? `<span class="A-sz">${it.sizes.map(s => `<span>${esc(nm(s))}<b class="num">${usd(disc(num(s.price), f.pr))}</b></span>`).join('')}</span>` : ''}
+    <span class="A-r"><b>${esc(nm(it))}${tagHTML(f)}</b><i></i><span class="p">${f.many ? '' : `${f.was ? `<s class="num" style="font-size:13px">${money(f.was)}</s> ` : ''}${U(f.now)}`}</span></span>
+    ${f.many ? `<span class="A-sz">${it.sizes.map(s => `<span>${esc(nm(s))}<b class="num">${money(disc(num(s.price), f.pr))}</b></span>`).join('')}</span>` : ''}
     <span class="A-d"><span>${esc(f.d)}</span><span class="l">${f.many ? '' : L(f.now)}</span></span></span></button>`;
 }
 function renderA(m){
@@ -362,7 +367,7 @@ function renderA(m){
 function cardB(it){
   const f = facts(it);
   return `<button class="B-card" data-it="${esc(it.id)}">${ph(f.img)}<span class="t"><b>${esc(nm(it))}</b>${tagHTML(f)}${f.d ? `<p>${esc(f.d)}</p>` : (f.many ? `<p>${it.sizes.map(s => esc(nm(s))).join(' / ')}</p>` : '')}</span>
-    <span class="B-price">${f.was ? `<s class="num">${usd(f.was)}</s>` : ''}<b>${fromHTML(f)}${U(f.now)}</b><small>${L(f.now)}</small></span></button>`;
+    <span class="B-price">${f.was ? `<s class="num">${money(f.was)}</s>` : ''}<b>${fromHTML(f)}${U(f.now)}</b><small>${L(f.now)}</small></span></button>`;
 }
 function renderB(m){
   if (q) return `${barB(t('results'))}${searchBox('B-search B-search2')}<div class="B-list" style="margin-top:14px">${m.items.map(cardB).join('') || `<div class="empty">${t('none')}</div>`}</div>`;
@@ -387,7 +392,7 @@ const barB = h => `<div class="B-bar"><button class="tb" data-view="home" aria-l
 function cardC(it){
   const f = facts(it);
   return `<button class="C-card" data-it="${esc(it.id)}">${ph(f.img)}<span class="in">${f.pr ? tagHTML(f) : ''}<b>${esc(nm(it))}</b><p>${esc(f.d || (f.many ? it.sizes.map(s => nm(s)).join(' / ') : ''))}</p>
-    <span class="pr"><span>${f.was ? `<s class="num" style="font-size:12px;display:block">${usd(f.was)}</s>` : ''}<b>${fromHTML(f)}${U(f.now)}</b></span><small>${L(f.now)}</small></span></span></button>`;
+    <span class="pr"><span>${f.was ? `<s class="num" style="font-size:12px;display:block">${money(f.was)}</s>` : ''}<b>${fromHTML(f)}${U(f.now)}</b></span><small>${L(f.now)}</small></span></span></button>`;
 }
 function renderC(m){
   return `<header class="C-head">${brand()}<div class="tools">${searchBtn()}${langBtn()}</div></header>
@@ -448,9 +453,9 @@ function sheetHTML(){
       <h2 id="sh-title">${esc(nm(it))}${tagHTML(f)}</h2>
       ${f.d && !it.combo ? `<p class="d">${esc(f.d)}</p>` : ''}
       ${it.combo ? `<ul class="parts">${it.combo.parts.map(p => { const sz = lang === 'en' ? p.sizeEn || p.size : p.size; return `<li>${esc(lang === 'en' && p.nameEn ? p.nameEn : p.name)}${sz ? ` <small>(${esc(sz)})</small>` : ''}${p.qty > 1 ? ` <span class="num">×${p.qty}</span>` : ''}</li>`; }).join('')}</ul>` : ''}
-      ${f.many ? `<fieldset class="opt-g"><legend>${t('size')}</legend><div class="seg">${it.sizes.map((s, i) => `<label><input type="radio" name="sz" value="${i}" ${i === open.size ? 'checked' : ''}><span>${esc(nm(s))}<span class="num">${usd(disc(num(s.price), f.pr))}</span></span></label>`).join('')}</div></fieldset>` : ''}
+      ${f.many ? `<fieldset class="opt-g"><legend>${t('size')}</legend><div class="seg">${it.sizes.map((s, i) => `<label><input type="radio" name="sz" value="${i}" ${i === open.size ? 'checked' : ''}><span>${esc(nm(s))}<span class="num">${money(disc(num(s.price), f.pr))}</span></span></label>`).join('')}</div></fieldset>` : ''}
       ${mgs.map(g => `<fieldset class="opt-g"><legend>${esc(nm(g))}<small>${g.max === 1 ? t('choose') : t('any')}${g.min ? sep() + t('req') : ''}</small></legend>
-        ${g.options.map(o => `<label class="opt"><input type="${g.max === 1 ? 'radio' : 'checkbox'}" name="m-${esc(g.id)}" value="${esc(o.id)}" data-g="${esc(g.id)}" ${(open.sel[g.id] || []).includes(o.id) ? 'checked' : ''}><span class="n">${esc(nm(o))}</span>${num(o.price) ? `<span class="p num">+${usd(o.price)}</span>` : ''}</label>`).join('')}</fieldset>`).join('')}
+        ${g.options.map(o => `<label class="opt"><input type="${g.max === 1 ? 'radio' : 'checkbox'}" name="m-${esc(g.id)}" value="${esc(o.id)}" data-g="${esc(g.id)}" ${(open.sel[g.id] || []).includes(o.id) ? 'checked' : ''}><span class="n">${esc(nm(o))}</span>${num(o.price) ? `<span class="p num">+${money(o.price)}</span>` : ''}</label>`).join('')}</fieldset>`).join('')}
     </div>
     <div class="total" id="tot"></div>`;
 }
@@ -461,7 +466,7 @@ function calcTotal(){
   raw = r2(raw);
   const v = disc(raw, pr);
   const was = it.combo && num(it.combo.regular) > v ? it.combo.regular : (pr ? raw : 0);
-  $('#tot').innerHTML = `<div class="lab"><b>${t('total')}</b>${t('info')}</div><div class="v">${was ? `<s class="num">${usd(was)}</s>` : ''}<span class="u num">${usd(v)}</span>${showL() ? `<span class="l num">${lbpTxt(v)}</span>` : ''}</div>`;
+  $('#tot').innerHTML = `<div class="lab"><b>${t('total')}</b>${t('info')}</div><div class="v">${was ? `<s class="num">${money(was)}</s>` : ''}<span class="u num">${money(v)}</span>${(leadL() || showL()) ? `<span class="l num">${other(v)}</span>` : ''}</div>`;
 }
 function openItem(id){
   const it = M.items.find(i => i.id === id); if (!it) return;
