@@ -54,6 +54,20 @@ svg.i{width:20px;height:20px;flex:none}
 .info svg.i{width:16px;height:16px;color:var(--accent)}
 .note{margin:10px 16px 0;color:var(--mute);font-size:13.5px}
 
+/* ---------- announcements: plain, or "on fire" ---------- */
+.ads{display:grid;gap:10px;margin:14px 16px 0}
+.ad{border-radius:18px;padding:13px 16px;font-weight:700;font-size:16px;line-height:1.4;display:flex;align-items:center;gap:10px;background:var(--accent-soft);color:var(--accent);border:1px solid rgba(2,71,19,.12)}
+.ad.fire{position:relative;overflow:hidden;color:#fff;border:0;font-size:17.5px;text-shadow:0 1px 2px rgba(120,20,0,.45);
+  background:linear-gradient(115deg,#FF3D00,#FF8A00,#FFC400,#FF6D00,#FF3D00);background-size:300% 100%;
+  box-shadow:0 0 0 1px rgba(255,120,0,.35),0 6px 22px rgba(255,90,0,.45);animation:fireflow 3.2s linear infinite,fireglow 1.6s ease-in-out infinite alternate}
+.ad.fire::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 120% at 12% 120%,rgba(255,255,255,.35),transparent 60%),radial-gradient(40% 90% at 88% -20%,rgba(255,240,180,.35),transparent 60%);pointer-events:none}
+.ad .flame{font-size:24px;line-height:1;display:inline-block;transform-origin:50% 90%;animation:flicker .9s ease-in-out infinite alternate}
+.ad span.tx{position:relative;z-index:1}
+@keyframes fireflow{to{background-position:300% 0}}
+@keyframes fireglow{from{box-shadow:0 0 0 1px rgba(255,120,0,.35),0 4px 14px rgba(255,90,0,.35)}to{box-shadow:0 0 0 1px rgba(255,160,0,.6),0 8px 30px rgba(255,80,0,.7)}}
+@keyframes flicker{0%{transform:scale(1) rotate(-4deg)}50%{transform:scale(1.12) rotate(3deg)}100%{transform:scale(.96) rotate(-2deg)}}
+@media (prefers-reduced-motion: reduce){.ad.fire,.ad .flame{animation:none}}
+
 /* ---------- search + view switch ---------- */
 .tools{display:flex;gap:10px;padding:14px 16px 4px;align-items:center}
 .search{flex:1;position:relative}
@@ -327,6 +341,7 @@ function render(){
     <section class="idcard">${M.logo !== false ? `<div class="logo"><img src="mark.svg" alt=""></div>` : ''}<div><h1>${esc(title())}</h1>${sub() ? `<p>${esc(sub())}</p>` : ''}</div></section>
     ${info ? `<div class="info">${info}</div>` : ''}
     ${note ? `<p class="note">${esc(note)}</p>` : ''}
+    ${(M.ads || []).length ? `<div class="ads">${M.ads.map(a => `<div class="ad ${a.fire ? 'fire' : ''}">${a.fire ? '<span class="flame" aria-hidden="true">🔥</span>' : ''}<span class="tx">${esc(lang === 'en' && a.textEn ? a.textEn : a.text)}</span></div>`).join('')}</div>` : ''}
     <div class="tools"><label class="search">${I.search}<input id="q" type="search" value="${esc(q)}" placeholder="${t('search')}" aria-label="${t('search')}"></label>
       <div class="viewseg" role="group"><button data-layout="grid" aria-pressed="${layout === 'grid'}" aria-label="${t('grid')}">${I.grid}</button><button data-layout="list" aria-pressed="${layout === 'list'}" aria-label="${t('list')}">${I.list}</button></div></div>
     ${sections.length && !q ? `<nav class="tabs"><div class="tabs-in" data-rail>${sections.map(s => `<button data-go="${esc(s.id)}"><span class="ico">${s.icoHTML || esc(s.ico)}</span>${esc(s.name)}</button>`).join('')}</div>
