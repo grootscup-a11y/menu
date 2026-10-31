@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#024713">
+<title>Groots Cup · مباشر</title>
+<link rel="icon" href="../mark.svg">
+<style>
+@font-face{font-family:Readex;src:url(../fonts/readex-pro-arabic-400-normal.woff2) format('woff2');font-weight:400;unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF}
+@font-face{font-family:Readex;src:url(../fonts/readex-pro-latin-400-normal.woff2) format('woff2');font-weight:400;unicode-range:U+0000-00FF,U+2000-206F}
+@font-face{font-family:Readex;src:url(../fonts/readex-pro-arabic-600-normal.woff2) format('woff2');font-weight:600;unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF}
+@font-face{font-family:Readex;src:url(../fonts/readex-pro-latin-600-normal.woff2) format('woff2');font-weight:600;unicode-range:U+0000-00FF,U+2000-206F}
+@font-face{font-family:Readex;src:url(../fonts/readex-pro-arabic-700-normal.woff2) format('woff2');font-weight:700;unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF}
+@font-face{font-family:Readex;src:url(../fonts/readex-pro-latin-700-normal.woff2) format('woff2');font-weight:700;unicode-range:U+0000-00FF,U+2000-206F}
+:root{--g:#024713;--g2:#0B5E22;--mint:#DCEFE1;--ink:#1A1F1B;--mut:#66706A;--line:#E2E7E3;--bg:#F1F4F1;--card:#fff;--warn:#9A5B00;--warn-bg:#FFF2DC;--bad:#B3261E;--bad-bg:#FCE8E6;--bar:#0B5E22;--bar2:#C9DDD0}
+@media (prefers-color-scheme:dark){:root{--ink:#E8EEEA;--mut:#9AA69F;--line:#26302A;--bg:#0F1411;--card:#18201B;--mint:#1E3326;--warn:#F2B55A;--warn-bg:#33270F;--bad:#FF8A80;--bad-bg:#3A1714;--bar:#6CC08A;--bar2:#2A3B30}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Readex,Tahoma,Arial,sans-serif;padding-bottom:env(safe-area-inset-bottom)}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+button,input{font:inherit}
+.wrap{max-width:560px;margin:0 auto;padding:0 16px 40px}
+header{background:var(--g);color:#fff;padding:calc(14px + env(safe-area-inset-top)) 16px 64px}
+header .in{max-width:560px;margin:0 auto;display:flex;align-items:center;gap:10px}
+header img{height:30px;width:auto}
+header h1{font-size:17px;margin:0;font-weight:600;flex:1}
+header small{display:block;font-weight:400;opacity:.8;font-size:12.5px}
+.ghost{background:transparent;border:1px solid rgba(255,255,255,.45);color:#fff;border-radius:10px;padding:6px 12px;cursor:pointer}
+.hero{background:var(--card);border-radius:20px;margin:-50px 0 12px;padding:18px 18px 16px;box-shadow:0 1px 0 var(--line)}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;padding:3px 10px;border-radius:99px;background:var(--mint);color:var(--g2)}
+@media (prefers-color-scheme:dark){.pill{color:#9FD3AC}}
+.pill i{width:7px;height:7px;border-radius:50%;background:currentColor}
+.pill.warn{background:var(--warn-bg);color:var(--warn)} .pill.bad{background:var(--bad-bg);color:var(--bad)}
+.big{font-size:44px;font-weight:700;letter-spacing:-.02em;line-height:1.1;margin:10px 0 2px}
+.lbp{color:var(--mut);font-size:15px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+.kpis div{text-align:center}
+.kpis b{display:block;font-size:19px;font-weight:600}
+.kpis span{font-size:12.5px;color:var(--mut)}
+section{background:var(--card);border-radius:16px;padding:14px 16px;margin:0 0 12px}
+h2{font-size:14px;margin:0 0 10px;font-weight:600;color:var(--mut)}
+.row{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.row .s{color:var(--mut);font-size:13px}
+.hours{display:flex;align-items:flex-end;gap:3px;height:92px;direction:ltr}
+.hours div{flex:1;background:var(--bar2);border-radius:3px 3px 0 0;min-height:2px;position:relative}
+.hours div.on{background:var(--bar)}
+.hlab{display:flex;justify-content:space-between;direction:ltr;color:var(--mut);font-size:11px;margin-top:4px}
+.days{display:flex;align-items:flex-end;gap:5px;height:110px;direction:ltr}
+.days .c{flex:1;max-width:34px;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end}
+.days .b{width:100%;background:var(--bar2);border-radius:4px 4px 0 0;min-height:2px}
+.days .c.today .b{background:var(--bar)}
+.days small{font-size:10.5px;color:var(--mut)}
+.shift b{font-size:16px}
+.order{display:grid;grid-template-columns:auto 1fr auto;gap:2px 10px;padding:8px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.order:last-child{border-bottom:0}
+.order .no{color:var(--mut);font-size:13px}
+.order .it{grid-column:2/4;color:var(--mut);font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tag{font-size:11.5px;padding:1px 7px;border-radius:6px;background:var(--mint);color:var(--g2);margin-inline-start:6px}
+.tag.void{background:var(--bad-bg);color:var(--bad)} .tag.hosp{background:var(--warn-bg);color:var(--warn)}
+.empty{color:var(--mut);font-size:14px}
+.low .s{color:var(--bad)}
+.foot{color:var(--mut);font-size:12px;text-align:center;margin-top:18px}
+/* sign in */
+.login{max-width:380px;margin:0 auto;padding:calc(48px + env(safe-area-inset-top)) 20px 40px}
+.login .mk{display:flex;justify-content:center;margin-bottom:14px}
+.login .mk span{width:64px;height:64px;border-radius:18px;background:var(--g);display:grid;place-items:center}
+.login h1{text-align:center;font-size:21px;margin:0 0 4px}
+.login p{text-align:center;color:var(--mut);margin:0 0 22px;font-size:14px}
+label{display:block;font-size:13.5px;color:var(--mut);margin-bottom:12px}
+input{display:block;width:100%;margin-top:5px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font-size:16px}
+input:focus{outline:2px solid var(--g);outline-offset:1px}
+.go{width:100%;padding:13px;border:0;border-radius:12px;background:var(--g);color:#fff;font-weight:600;font-size:16px;cursor:pointer;margin-top:6px}
+.go:disabled{opacity:.6}
+.err{background:var(--bad-bg);color:var(--bad);border-radius:12px;padding:10px 12px;font-size:14px;margin-bottom:12px}
+:focus-visible{outline:2px solid var(--g);outline-offset:2px}
+@media (prefers-reduced-motion:no-preference){.hero,.big{transition:opacity .2s}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const CFG = {"apiKey":"AIzaSyDBDwwJrajTwC8jto75DU4o6f3s9jp0_FI","projectId":"groots-cup"};
+(() => {
+  const base = (CFG && CFG.base) || '';
+  const AUTH = base || 'https://identitytoolkit.googleapis.com', TOKEN = base || 'https://securetoken.googleapis.com', STORE = base || 'https://firestore.googleapis.com';
+  const DOCS = `${STORE}/v1/projects/${CFG && CFG.projectId}/databases/(default)/documents`;
+  const app = document.getElementById('app');
+  const KEY = 'gc-live-rt';
+  const store = {get(){ try { return localStorage.getItem(KEY) || ''; } catch (e) { return ''; } }, set(v){ try { v ? localStorage.setItem(KEY, v) : localStorage.removeItem(KEY); } catch (e) {} }};
+  let tok = null, rt = store.get(), timer = null, data = null, days = [], lastErr = '';
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+  const usd = v => '$' + (Math.round((+v || 0) * 100) / 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  const lbp = v => Math.round(+v || 0).toLocaleString('en-US') + ' ل.ل';
+  const hm = iso => { const d = new Date(iso); return isNaN(d) ? '' : d.toLocaleTimeString('en-GB', {hour: '2-digit', minute: '2-digit'}); };
+  const ago = iso => { const m = Math.round((Date.now() - Date.parse(iso)) / 60000); return !iso || isNaN(m) ? '' : m < 1 ? 'هلّق' : m < 60 ? `من ${m} دقيقة` : m < 1440 ? `من ${Math.round(m / 60)} ساعة` : `من ${Math.round(m / 1440)} يوم`; };
+  const p2 = n => String(n).padStart(2, '0'); const dayKey = d => `${d.getFullYear()}-${p2(d.getMonth() + 1)}-${p2(d.getDate())}`;
+  const METHOD = {cash: 'كاش', card: 'بطاقة', account: 'على الحساب', platform: 'منصة التوصيل', free: 'مجاني', hosp: 'ضيافة', void: 'ملغى', split: 'مختلط'};
+
+  async function post(url, body){ const r = await fetch(url, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body)}); const j = await r.json().catch(() => ({})); if (!r.ok) throw Object.assign(new Error((j.error && j.error.message) || ('HTTP ' + r.status)), {status: r.status}); return j; }
+  const why = e => /INVALID_PASSWORD|INVALID_LOGIN_CREDENTIALS|EMAIL_NOT_FOUND|INVALID_EMAIL/.test(e.message) ? 'الإيميل أو كلمة السر غلط.'
+    : /TOO_MANY_ATTEMPTS/.test(e.message) ? 'محاولات كتيرة غلط. جرّب بعد ربع ساعة.'
+    : e.status === 403 || /PERMISSION/.test(e.message) ? 'هالحساب ما إلو صلاحية يشوف بيانات المحل.'
+    : /Failed to fetch|NetworkError|Load failed/.test(e.message) ? 'ما في إنترنت.' : e.message;
+  async function idToken(){
+    if (tok && tok.exp > Date.now() + 60000) return tok.id;
+    const j = await post(`${TOKEN}/v1/token?key=${CFG.apiKey}`, {grant_type: 'refresh_token', refresh_token: rt});
+    tok = {id: j.id_token, exp: Date.now() + (+j.expires_in || 3600) * 1000}; rt = j.refresh_token || rt; store.set(rt);
+    return tok.id;
+  }
+  async function get(path){
+    const r = await fetch(`${DOCS}/${path}`, {headers: {Authorization: 'Bearer ' + await idToken()}});
+    if (r.status === 404) return null;
+    const j = await r.json().catch(() => ({})); if (!r.ok) throw Object.assign(new Error((j.error && j.error.message) || ('HTTP ' + r.status)), {status: r.status});
+    return j;
+  }
+  const field = (doc, k) => doc && doc.fields && doc.fields[k] ? (doc.fields[k].stringValue ?? '') : '';
+  async function load(){
+    try {
+      const doc = await get('live/today');
+      data = doc ? JSON.parse(field(doc, 'data') || 'null') : null;
+      const q = await fetch(`${DOCS}:runQuery`, {method: 'POST', headers: {'Content-Type': 'application/json', Authorization: 'Bearer ' + await idToken()},
+        body: JSON.stringify({structuredQuery: {from: [{collectionId: 'days'}], orderBy: [{field: {fieldPath: 'day'}, direction: 'DESCENDING'}], limit: 14}})});
+      const qj = q.ok ? await q.json() : [];
+      days = (Array.isArray(qj) ? qj : []).filter(x => x.document).map(x => { try { return JSON.parse(field(x.document, 'data')); } catch (e) { return null; } }).filter(Boolean).reverse();
+      lastErr = '';
+    } catch (e) {
+      if (e.status === 400 || e.status === 401) { tok = null; }
+      if (/TOKEN_EXPIRED|INVALID_REFRESH_TOKEN|USER_DISABLED|USER_NOT_FOUND|INVALID_GRANT/.test(e.message)) return logout('انتهى الدخول. فوت من جديد.');
+      lastErr = why(e);
+    }
+    draw();
+  }
+  function logout(msg){ clearInterval(timer); timer = null; tok = null; rt = ''; store.set(''); data = null; login(msg); }
+
+  function login(msg){
+    app.innerHTML = `<div class="login"><div class="mk"><span><img src="../mark-light.svg" alt="" width="38" height="38"></span></div>
+      <h1>Groots Cup · مباشر</h1><p>مبيع المحل لحظة بلحظة. للمالك بس.</p>
+      ${msg ? `<div class="err" role="alert">${esc(msg)}</div>` : ''}
+      <form id="f"><label>الإيميل<input id="em" type="email" dir="ltr" autocomplete="username" required></label>
+      <label>كلمة السر<input id="pw" type="password" dir="ltr" autocomplete="current-password" required></label>
+      <button class="go" id="go">فوت</button></form></div>`;
+    document.getElementById('f').onsubmit = async e => {
+      e.preventDefault(); const b = document.getElementById('go'); b.disabled = true; b.textContent = 'عم يفوت…';
+      try {
+        const j = await post(`${AUTH}/v1/accounts:signInWithPassword?key=${CFG.apiKey}`, {email: document.getElementById('em').value.trim(), password: document.getElementById('pw').value, returnSecureToken: true});
+        tok = {id: j.idToken, exp: Date.now() + (+j.expiresIn || 3600) * 1000}; rt = j.refreshToken; store.set(rt); start();
+      } catch (err) { login(why(err)); }
+    };
+  }
+  function start(){ app.innerHTML = '<div class="wrap" style="padding-top:40px;color:var(--mut);text-align:center">عم يحمّل…</div>'; load(); clearInterval(timer); timer = setInterval(() => { if (!document.hidden) load(); }, 30000); }
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && rt && timer) load(); });
+
+  function draw(){
+    const d = data, today = dayKey(new Date());
+    const fresh = d && d.at ? (Date.now() - Date.parse(d.at)) / 60000 : Infinity;
+    const pill = !d ? ['bad', 'ما وصل شي من المحل بعد'] : fresh <= 15 ? ['', `المحل متصل · آخر تحديث ${ago(d.at)}`] : fresh <= 60 ? ['warn', `آخر تحديث ${ago(d.at)}`] : ['bad', `كمبيوتر المحل مش متصل · آخر تحديث ${ago(d.at)}`];
+    const isToday = d && d.day === today;
+    const x = isToday ? d : {orders: 0, total: 0, totalLbp: 0, by: {}, hours: Array(24).fill(0), top: [], last: [], closed: [], hospN: 0, voidN: 0, disc: 0, low: d ? d.low : [], shift: d ? d.shift : null};
+    const avg = x.orders ? x.total / x.orders : 0;
+    const hrs = (x.hours || []).slice(7).concat((x.hours || []).slice(0, 1)), hmax = Math.max(...hrs, 0.01), nowH = new Date().getHours();
+    const dmax = Math.max(...days.map(z => z.total || 0), 0.01);
+    const methods = Object.entries(x.by || {}).filter(([, v]) => v > 0);
+    app.innerHTML = `<header><div class="in"><img src="../mark-light.svg" alt=""><h1>${esc((d && d.cafe) || 'Groots Cup')}<small>${new Date().toLocaleDateString('ar-LB', {weekday: 'long', day: 'numeric', month: 'long'})}</small></h1><button class="ghost" id="out">خروج</button></div></header>
+    <div class="wrap">
+      <div class="hero">
+        <span class="pill ${pill[0]}"><i></i>${esc(pill[1])}</span>
+        ${lastErr ? `<div class="err" style="margin-top:10px">${esc(lastErr)}</div>` : ''}
+        <div class="big num">${usd(x.total)}</div>
+        <div class="lbp num">${lbp(x.totalLbp)}</div>
+        <div class="kpis"><div><b class="num">${x.orders}</b><span>طلب</span></div><div><b class="num">${usd(avg)}</b><span>معدّل الطلب</span></div><div><b class="num">${usd(x.disc || 0)}</b><span>حسومات</span></div></div>
+      </div>
+      ${x.shift ? `<section class="shift"><h2>الوردية المفتوحة</h2>
+        <div class="row"><span><b>${esc(x.shift.user)}</b> <span class="s">من ${hm(x.shift.at)}</span></span><span><span class="num">${x.shift.orders}</span> طلب · <span class="num">${usd(x.shift.total)}</span></span></div>
+        <div class="row"><span class="s">لازم يكون بالدرج</span><span><span class="num">${usd(x.shift.expUsd)}</span> + <span class="num">${lbp(x.shift.expLbp)}</span></span></div></section>` : d ? `<section><h2>الوردية</h2><p class="empty">ما في وردية مفتوحة.</p></section>` : ''}
+      ${methods.length ? `<section><h2>طرق الدفع</h2>${methods.map(([k, v]) => `<div class="row"><span>${METHOD[k] || k}</span><span class="num">${usd(v)}</span></div>`).join('')}
+        ${x.hospN ? `<div class="row"><span>ضيافة</span><span><span class="num">${x.hospN}</span> طلب</span></div>` : ''}${x.voidN ? `<div class="row"><span>ملغى</span><span><span class="num">${x.voidN}</span> طلب</span></div>` : ''}</section>` : ''}
+      <section><h2>المبيع حسب الساعة</h2>
+        <div class="hours" role="img" aria-label="المبيع حسب الساعة">${hrs.map((v, i) => { const h = (i + 7) % 24; return `<div class="${h === nowH ? 'on' : ''}" style="height:${Math.max(v / hmax * 100, 2)}%" title="${p2(h)}:00 · ${usd(v)}"></div>`; }).join('')}</div>
+        <div class="hlab"><span>7</span><span>12</span><span>17</span><span>24</span></div></section>
+      <section><h2>آخر الطلبات</h2>${(x.last || []).length ? x.last.map(o => `<div class="order"><span class="no num">#${esc(o.no)} · ${hm(o.at)}</span><span>${esc(o.u)}${o.m !== 'cash' ? `<span class="tag ${o.m === 'void' ? 'void' : o.m === 'hosp' ? 'hosp' : ''}">${METHOD[o.m] || esc(o.m)}</span>` : ''}</span><b class="num">${usd(o.t)}</b><span class="it">${esc(o.it)}</span></div>`).join('') : '<p class="empty">ما في طلبات اليوم بعد.</p>'}</section>
+      ${(x.top || []).length ? `<section><h2>أكتر الأصناف اليوم</h2>${x.top.map(t => `<div class="row"><span>${esc(t.n)}</span><span><span class="num">${t.q}</span> · <span class="num">${usd(t.s)}</span></span></div>`).join('')}</section>` : ''}
+      ${(x.closed || []).length ? `<section><h2>ورديات انقفلت اليوم</h2>${x.closed.map(s => `<div class="row"><span>${esc(s.user)} <span class="s num">${hm(s.from)}–${hm(s.to)}</span></span><span><span class="num">${usd(s.total)}</span> · <span style="color:${Math.abs(s.varNet) >= 1 ? 'var(--bad)' : 'inherit'}">فرق <span class="num">${usd(s.varNet)}</span></span></span></div>`).join('')}</section>` : ''}
+      <section class="low"><h2>نقص المخزون</h2>${(x.low || []).length ? x.low.map(l => `<div class="row"><span>${esc(l.n)}</span><span class="s"><span class="num">${l.s}</span> ${esc(l.u)} · الحد <span class="num">${l.min}</span></span></div>`).join('') : '<p class="empty">ما في نقص.</p>'}</section>
+      ${days.length ? `<section><h2>${days.length > 1 ? `آخر ${days.length} يوم` : 'الأيام'}</h2><div class="days">${days.map(z => `<div class="c ${z.day === today ? 'today' : ''}" title="${esc(z.day)} · ${usd(z.total)} · ${z.orders} طلب"><div class="b" style="height:${Math.max((z.total || 0) / dmax * 82, 2)}%"></div><small class="num">${esc(z.day.slice(8))}</small></div>`).join('')}</div></section>` : ''}
+      <p class="foot">مشاهدة بس، ما في تعديل. بتتحدّث كل 30 ثانية.${d && d.app ? ` · v${esc(d.app)}` : ''}</p>
+    </div>`;
+    document.getElementById('out').onclick = () => logout('');
+  }
+
+  if (!CFG || !CFG.apiKey) app.innerHTML = '<div class="login"><div class="err">الصفحة مش مربوطة بالكلاود.</div></div>';
+  else if (rt) start(); else login('');
+})();
+</script>
+</body>
+</html>
